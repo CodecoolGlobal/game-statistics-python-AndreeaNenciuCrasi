@@ -61,6 +61,7 @@ def get_line_number_by_title(file_name, title):
             except ValueError:
                 print("Non-existing game")
         count_line += 1
+    file.close()
 
 
 def sort_abc(file_name):
@@ -73,6 +74,7 @@ def sort_abc(file_name):
     while title_list:
         sorted_titles.append(min(title_list))
         title_list.remove(min(title_list))
+    file.close()
     return sorted_titles
 
 
@@ -89,6 +91,7 @@ def get_genres(file_name):
     while list_to_sort:
         sorted_genres.append(min(list_to_sort))
         list_to_sort.remove(min(list_to_sort))
+    file.close()
     return sorted_genres
 
 
@@ -105,6 +108,7 @@ def when_was_top_sold_fps(file_name):
         except ValueError:
             print('No First-person shooter game.')
     final = sorted(year_list, key=lambda t: t[0], reverse=True)
+    file.close()
     return final[0][1]
 
 
