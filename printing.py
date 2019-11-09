@@ -1,2 +1,18 @@
-
+import reports
 # Printing functions
+result1 = reports.count_games("game_stat.txt")
+result2 = reports.decide("game_stat.txt", 2000)
+result3 = reports.get_latest("game_stat.txt")
+result4 = reports.count_by_genre("game_stat.txt", 'First-person shooter')
+result5 = reports.get_line_number_by_title("game_stat.txt", 'Half-Life')
+result6 = reports.sort_abc("game_stat.txt")
+result7 = reports.get_genres("game_stat.txt")
+result8 = reports.when_was_top_sold_fps("game_stat.txt")
+print(result1)
+print(result2)
+print(result3)
+print(result4)
+print(result5)
+print(result6)
+print(result7)
+print(result8)

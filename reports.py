@@ -35,7 +35,7 @@ def get_latest(file_name):
         year_list.append((split_list[GAME_NAME], split_list[YEAR]))
     latest = max(year_list, key=lambda t: t[1])
     file.close()
-    return latest
+    return latest[0]
 
 
 def count_by_genre(file_name, genre):
@@ -70,34 +70,33 @@ def sort_abc(file_name):
     for line in file.readlines():
         split_list = line.rsplit('\t')
         title_list.append(split_list[GAME_NAME])
-    sorted_titles = []
+    final_titles = []
     while title_list:
-        sorted_titles.append(min(title_list))
+        final_titles.append(min(title_list))
         title_list.remove(min(title_list))
     file.close()
-    return sorted_titles
+    return final_titles
 
 
 def get_genres(file_name):
     genre_list = []
-    sorted_genres = []
+    final_genres = []
     file = open(file_name, "r")
     for line in file.readlines():
         split_list = line.rsplit('\t')
         genre_list.append(split_list[GENRE])
 
-    list_to_sort = list(set(genre_list))
+    list_to_s = list(set(genre_list))
 
-    while list_to_sort:
-        sorted_genres.append(min(list_to_sort))
-        list_to_sort.remove(min(list_to_sort))
+    while list_to_s:
+        final_genres.append(min(list_to_s))
+        list_to_s.remove(min(list_to_s))
     file.close()
-    return sorted_genres
+    return final_genres
 
 
 def when_was_top_sold_fps(file_name):
     year_list = []
-    sorted_genres = []
     file = open(file_name, "r")
     for line in file.readlines():
         split_list = line.rsplit('\t')
@@ -109,14 +108,4 @@ def when_was_top_sold_fps(file_name):
             print('No First-person shooter game.')
     final = sorted(year_list, key=lambda t: t[0], reverse=True)
     file.close()
-    return final[0][1]
-
-
-# print(count_games('game_stat.txt'))
-# print(decide('game_stat.txt', 2000))
-# print(get_latest('game_stat.txt'))
-# print(count_by_genre('game_stat.txt', 'First-person shooter'))
-# print(get_line_number_by_title('game_stat.txt', 'Half-Life'))
-# print(sort_abc('game_stat.txt'))
-# print(get_genres('game_stat.txt'))
-# print(when_was_top_sold_fps('game_stat.txt'))
+    return int(final[0][1])
