@@ -7,6 +7,15 @@ YEAR = 2
 GENRE = 3
 
 
+def bubbles(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+
 def count_games(file_name):
     file = open(file_name, "r")
     count = len(file.readlines())
@@ -70,10 +79,12 @@ def sort_abc(file_name):
     for line in file.readlines():
         split_list = line.rsplit('\t')
         title_list.append(split_list[GAME_NAME])
-    final_titles = []
-    while title_list:
-        final_titles.append(min(title_list))
-        title_list.remove(min(title_list))
+
+    final_titles = bubbles(title_list)
+
+    # while title_list:
+    #     final_titles.append(min(title_list))
+    #     title_list.remove(min(title_list))
     file.close()
     return final_titles
 
