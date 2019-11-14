@@ -16,6 +16,15 @@ def bubbles(arr):
     return arr
 
 
+def bubblesReverse(arr, key=None):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j][key] < arr[j+1][key]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+
 def count_games(file_name):
     file = open(file_name, "r")
     count = len(file.readlines())
@@ -65,12 +74,12 @@ def get_line_number_by_title(file_name, title):
     for line in file.readlines():
         split_list = line.rsplit('\t')
         if title == split_list[GAME_NAME]:
-            try:
-                return count_line
-            except ValueError:
-                print("Non-existing game")
+
+            return count_line
         count_line += 1
     file.close()
+
+    raise ValueError('Non-existing game')
 
 
 def sort_abc(file_name):
@@ -111,12 +120,14 @@ def when_was_top_sold_fps(file_name):
     file = open(file_name, "r")
     for line in file.readlines():
         split_list = line.rsplit('\t')
-        try:
-            if split_list[GENRE] == 'First-person shooter':
-                year_list.append(
-                    (float(split_list[MILLIONS_SOLD]), split_list[YEAR]))
-        except ValueError:
-            print('No First-person shooter game.')
-    final = sorted(year_list, key=lambda t: t[0], reverse=True)
+
+        if split_list[GENRE] == 'First-person shooter':
+            year_list.append(
+                (float(split_list[MILLIONS_SOLD]), split_list[YEAR]))
+    if len(year_list) == 0:
+        raise ValueError
+
+    final = bubblesReverse(year_list, 0)
+    # print(final[0][1])
     file.close()
     return int(final[0][1])
